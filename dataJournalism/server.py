@@ -9,9 +9,9 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 
 @app.route('/')
 def about():
-    #f = open("dataJournalism/data/math_scores.json")
-    #data = json.load(f)
-    #f.close()
+    f = open("dataJournalism/data/math_scores.json")
+    data = json.load(f)
+    f.close()
     
     #print(data)
 
