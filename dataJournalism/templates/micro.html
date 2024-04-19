@@ -15,17 +15,14 @@
             <form action="/micro" method="GET">
               <label for="score">Choose a score:</label><br>
               <select name="score" id="score_select">
-                <!--{% for year in years %}
-                  <option value="{{year}}">{{year}}</option>
+                {% for score in range(1,5) %}
+                  <option value="{{score}}">{{score}}</option>
                 {% endfor %}
-                -->
               </select>
               <input type="submit" value="Submit">
             <form>
           </div>
-          
-        <footer>
-            All data from <a href="https://data.cityofnewyork.us/Education/Math-Test-Results-2013-2023/74kb-55u9/about_data"> NYC Open Data</a>.
-        </footer>
+
+          {% include 'footer.html' %}
     </body>
 </html>

@@ -13,7 +13,7 @@ def about():
     data = json.load(f)
     f.close()
     
-    percentDict = {}
+    '''percentDict = {}
     for district in data:
         disadv2023 = data[district]["Econ Disadv"]["2023"]["NumTested"]
         notdisadv2023 = data[district]["Not Econ Disadv"]["2023"]["NumTested"]
@@ -28,9 +28,17 @@ def about():
             lowestperc = percentDict[district]
 
     print(percentDict)
-    print("Range is "+str(lowestperc)+"% to "+str(highestperc)+"%")
+    print("Range is "+str(lowestperc)+"% to "+str(highestperc)+"%")'''
+
+    years = []
+    for year in data["1"]["Econ Disadv"]:
+        years.append(year)
     
-    return render_template('about.html', data=data)
+    districts = []
+    for district in data:
+        districts.append(district)
+
+    return render_template('about.html', data=data, years=years, districts=districts)
 
 @app.route('/macro')
 def macro():
@@ -38,7 +46,15 @@ def macro():
     data = json.load(f)
     f.close()
 
-    return render_template('macro.html', data=data)
+    years = []
+    for year in data["1"]["Econ Disadv"]:
+        years.append(year)
+    
+    districts = []
+    for district in data:
+        districts.append(district)
+
+    return render_template('macro.html', data=data, years=years, districts=districts)
 
 @app.route('/micro')
 def micro():
@@ -46,6 +62,14 @@ def micro():
     data = json.load(f)
     f.close()
 
-    return render_template('micro.html', data=data)
+    years = []
+    for year in data["1"]["Econ Disadv"]:
+        years.append(year)
+    
+    districts = []
+    for district in data:
+        districts.append(district)
+
+    return render_template('micro.html', data=data, years=years, districts=districts)
 
 app.run(debug=True)
