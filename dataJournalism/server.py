@@ -7,7 +7,7 @@ import math
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
-@app.route('/')
+@app.route('/about')
 def about():
     f = open("dataJournalism/data/math_scores.json")
     data = json.load(f)
@@ -30,7 +30,22 @@ def about():
     print(percentDict)
     print("Range is "+str(lowestperc)+"% to "+str(highestperc)+"%")
     
-    return render_template('about.html')
+    return render_template('about.html', data=data)
 
+@app.route('/macro')
+def macro():
+    f = open("dataJournalism/data/math_scores.json")
+    data = json.load(f)
+    f.close()
+
+    return render_template('macro.html', data=data)
+
+@app.route('/micro')
+def micro():
+    f = open("dataJournalism/data/math_scores.json")
+    data = json.load(f)
+    f.close()
+
+    return render_template('micro.html', data=data)
 
 app.run(debug=True)
