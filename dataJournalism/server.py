@@ -54,7 +54,22 @@ def macro():
     for district in data:
         districts.append(district)
 
-    return render_template('macro.html', data=data, years=years, districts=districts)
+    if (type(request.args.get('year')) != 'str'):
+        year = "2023"
+    else:
+        year = request.args.get('year')
+    print(year, type(year))
+
+    percentDisadv = {}
+    for district in data:
+        numDisadv = data[district]["Econ Disadv"][year]["NumTested"]
+        numNotDisadv = data[district]["Not Econ Disadv"][year]["NumTested"]
+        percentDisadv[district] = int((numDisadv/(numDisadv+numNotDisadv))*100)
+
+    
+    
+
+    return render_template('macro.html', data=data, years=years, districts=districts, percentDisadv=percentDisadv)
 
 @app.route('/micro/<district>')
 def micro(district):
