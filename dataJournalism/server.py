@@ -56,8 +56,8 @@ def macro():
 
     return render_template('macro.html', data=data, years=years, districts=districts)
 
-@app.route('/micro')
-def micro():
+@app.route('/micro/<district>')
+def micro(district):
     f = open("dataJournalism/data/math_scores.json")
     data = json.load(f)
     f.close()
@@ -67,10 +67,9 @@ def micro():
         years.append(year)
     
     districts = []
-    for district in data:
-        districts.append(district)
+    for dist in data:
+        districts.append(dist)
 
-    return render_template('micro.html', data=data, years=years, districts=districts)
+    return render_template('micro.html', data=data, years=years, districts=districts, district=district)
 
-#testtetstesestsetetsestetsestsetsetset
 app.run(debug=True)
