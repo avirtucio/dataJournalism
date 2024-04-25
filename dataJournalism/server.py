@@ -60,16 +60,21 @@ def macro():
         year = request.args.get('year')
     print(year, type(year))
 
-    percentDisadv = {}
+    percent_Disadv = {}
     for district in data:
         numDisadv = data[district]["Econ Disadv"][year]["NumTested"]
         numNotDisadv = data[district]["Not Econ Disadv"][year]["NumTested"]
-        percentDisadv[district] = int((numDisadv/(numDisadv+numNotDisadv))*100)
+        percent_Disadv[district] = int((numDisadv/(numDisadv+numNotDisadv))*100)
 
-    
+    avg_Score = {}
+    for district in data:
+        notDisadvTesters = data[district]["Not Econ Disadv"][year]["NumTested"]
+        disadvTesters = data[district]["Econ Disadv"][year]["NumTested"]
+        totalTests = notDisadvTesters + disadvTesters
+        total1 = (data[district]["Not Econ Disadv"][year]["Pct1"])*notDisadvTesters + (data[district]["Econ Disadv"][year]["Pct1"])*disadvTesters
     
 
-    return render_template('macro.html', data=data, years=years, districts=districts, percentDisadv=percentDisadv)
+    return render_template('macro.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv)
 
 @app.route('/micro/<district>')
 def micro(district):
