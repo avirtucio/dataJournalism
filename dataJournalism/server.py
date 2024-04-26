@@ -13,7 +13,7 @@ def about():
     data = json.load(f)
     f.close()
     
-    '''percentDict = {}
+    percentDict = {}
     for district in data:
         disadv2023 = data[district]["Econ Disadv"]["2023"]["NumTested"]
         notdisadv2023 = data[district]["Not Econ Disadv"]["2023"]["NumTested"]
@@ -28,7 +28,7 @@ def about():
             lowestperc = percentDict[district]
 
     print(percentDict)
-    print("Range is "+str(lowestperc)+"% to "+str(highestperc)+"%")'''
+    print("Range is "+str(lowestperc)+"% to "+str(highestperc)+"%")
 
     years = []
     for year in data["1"]["Econ Disadv"]:
@@ -58,7 +58,6 @@ def macro():
         year = "2023"
     else:
         year = request.args.get('year')
-    print(year, type(year))
 
     percent_Disadv = {}
     for district in data:
@@ -72,7 +71,18 @@ def macro():
         disadvTesters = data[district]["Econ Disadv"][year]["NumTested"]
         totalTests = notDisadvTesters + disadvTesters
         total1 = (data[district]["Not Econ Disadv"][year]["Pct1"])*notDisadvTesters + (data[district]["Econ Disadv"][year]["Pct1"])*disadvTesters
-    
+        total2 = (data[district]["Not Econ Disadv"][year]["Pct2"])*notDisadvTesters + (data[district]["Econ Disadv"][year]["Pct2"])*disadvTesters
+        total3 = (data[district]["Not Econ Disadv"][year]["Pct3"])*notDisadvTesters + (data[district]["Econ Disadv"][year]["Pct3"])*disadvTesters
+        total4 = (data[district]["Not Econ Disadv"][year]["Pct4"])*notDisadvTesters + (data[district]["Econ Disadv"][year]["Pct4"])*disadvTesters
+        avg = (total1 + total2*2 + total3*3 + total4*4)/(totalTests*4)
+        avg_Score[district] = int(avg)
+
+    bar_Colors = []
+    for percent in range(50,105,5):
+        bar_Colors.append("hsl(0,100%,"+str(percent)+"%)")
+    #range is 30 to 100%
+    #print(bar_Colors)
+
 
     return render_template('macro.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv)
 
