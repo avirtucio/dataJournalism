@@ -78,13 +78,11 @@ def macro():
         avg_Score[district] = int(avg)
 
     bar_Colors = []
-    for percent in range(50,105,5):
+    for percent in range(51,107,7):
         bar_Colors.append("hsl(0,100%,"+str(percent)+"%)")
-    #range is 30 to 100%
-    #print(bar_Colors)
-
-
-    return render_template('macro.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv)
+    #range is 100% to 30%
+    
+    return render_template('macro.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv, avg_Score=avg_Score, bar_Colors=bar_Colors)
 
 @app.route('/micro/<district>')
 def micro(district):

@@ -24,6 +24,18 @@
           </div>
 
           {% include 'footer.html' %}
+
+        <script>
+          bar_ColorsJS = {{ bar_Colors|tojson }}
+          districtsJS = {{ districts|tojson }}
+
+          for (let i=0; i < districtsJS.length; i++){
+            district = document.getElementsByClassName(districtsJS[i]);
+            console.log(district[0]);
+            district[0].style.fill = bar_ColorsJS[5];
+          }
+
+        </script>
     </body>
 
 </html>
