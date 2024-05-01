@@ -11,12 +11,4 @@
         <text class="yaxislabel" x="35" y="{{425 - 36*i}}" font-size="12" text>{{i*10}}</text>
     {% endfor %}    
 
-    <!-- 
-        y60 = 100, y420 = 0
-        36px per 10%
-        3.6px per 1%
-
-    
-    -->
-
 </svg>

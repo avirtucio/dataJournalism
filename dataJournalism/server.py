@@ -54,9 +54,10 @@ def macro():
     for district in data:
         districts.append(district)
 
-    if (type(request.args.get('year')) != 'str'):
+    if (type(request.args.get('year')) != str):
         year = "2023"
-    else:
+    elif (type(request.args.get('year')) == str):
+        print("type is string")
         year = request.args.get('year')
 
     percent_Disadv = {}
@@ -78,11 +79,16 @@ def macro():
         avg_Score[district] = int(avg)
 
     bar_Colors = []
-    for percent in range(51,107,7):
+    for percent in range(100,42,-7):
         bar_Colors.append("hsl(0,100%,"+str(percent)+"%)")
-    #range is 100% to 30%
+    #range is 30% to 100%
     
-    return render_template('macro.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv, avg_Score=avg_Score, bar_Colors=bar_Colors)
+    data_Points_to_Colors = {}
+    for district in percent_Disadv:
+        data_Points_to_Colors[district] = bar_Colors[math.ceil(percent_Disadv[district]/10) - 3]
+    #0;30 1;40 2;50 3;60 4;70 5;80 6;90 7;100
+
+    return render_template('macro.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv, avg_Score=avg_Score, bar_Colors=bar_Colors, data_Points_to_Colors=data_Points_to_Colors, year=year)
 
 @app.route('/micro/<district>')
 def micro(district):
@@ -98,6 +104,16 @@ def micro(district):
     for dist in data:
         districts.append(dist)
 
-    return render_template('micro.html', data=data, years=years, districts=districts, district=district)
+    district_Scores = {}
+    district_Scores["Econ Disadv"], district_Scores["Not Econ Disadv"] = {}, {}
+    for year in data[district]["Econ Disadv"]:
+        district_Scores["Econ Disadv"][year] = data[district]["Econ Disadv"][year]["Pct4"]
+    for year in data[district]["Not Econ Disadv"]:
+        district_Scores["Not Econ Disadv"][year] = data[district]["Not Econ Disadv"][year]["Pct4"]
+
+    print(district)
+    print(district_Scores)
+    
+    return render_template('micro.html', data=data, years=years, districts=districts, district=district, district_Scores=district_Scores)
 
 app.run(debug=True)
