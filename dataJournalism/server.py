@@ -99,6 +99,7 @@ def micro(district):
     years = []
     for year in data["1"]["Econ Disadv"]:
         years.append(year)
+    numYears = len(years)-1
     
     districts = []
     for dist in data:
@@ -111,9 +112,9 @@ def micro(district):
     for year in data[district]["Not Econ Disadv"]:
         district_Scores["Not Econ Disadv"][year] = data[district]["Not Econ Disadv"][year]["Pct4"]
 
-    print(district)
     print(district_Scores)
+    print(district_Scores["Not Econ Disadv"][years[numYears-2]])
     
-    return render_template('micro.html', data=data, years=years, districts=districts, district=district, district_Scores=district_Scores)
+    return render_template('micro.html', data=data, years=years, districts=districts, district=str(district), district_Scores=district_Scores, numYears=numYears)
 
 app.run(debug=True)
