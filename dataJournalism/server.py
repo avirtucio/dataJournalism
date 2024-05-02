@@ -57,7 +57,6 @@ def macro():
     if (type(request.args.get('year')) != str):
         year = "2023"
     elif (type(request.args.get('year')) == str):
-        print("type is string")
         year = request.args.get('year')
 
     percent_Disadv = {}
@@ -96,6 +95,11 @@ def micro(district):
     data = json.load(f)
     f.close()
 
+    if (type(request.args.get('score')) != str):
+        score = "4"
+    elif (type(request.args.get('score')) == str):
+        score = request.args.get('score')
+
     years = []
     for year in data["1"]["Econ Disadv"]:
         years.append(year)
@@ -108,9 +112,9 @@ def micro(district):
     district_Scores = {}
     district_Scores["Econ Disadv"], district_Scores["Not Econ Disadv"] = {}, {}
     for year in data[district]["Econ Disadv"]:
-        district_Scores["Econ Disadv"][year] = data[district]["Econ Disadv"][year]["Pct4"]
+        district_Scores["Econ Disadv"][year] = data[district]["Econ Disadv"][year]["Pct"+score]
     for year in data[district]["Not Econ Disadv"]:
-        district_Scores["Not Econ Disadv"][year] = data[district]["Not Econ Disadv"][year]["Pct4"]
+        district_Scores["Not Econ Disadv"][year] = data[district]["Not Econ Disadv"][year]["Pct"+score]
 
     print(district_Scores)
     print(district_Scores["Not Econ Disadv"][years[numYears-2]])
