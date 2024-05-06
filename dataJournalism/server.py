@@ -119,6 +119,6 @@ def micro(district):
     print(district_Scores)
     print(district_Scores["Not Econ Disadv"][years[numYears-2]])
     
-    return render_template('micro.html', data=data, years=years, districts=districts, district=str(district), district_Scores=district_Scores, numYears=numYears)
+    return render_template('micro.html', data=data, years=years, districts=districts, district=str(district), district_Scores=district_Scores, numYears=numYears, score=score)
 
 app.run(debug=True)

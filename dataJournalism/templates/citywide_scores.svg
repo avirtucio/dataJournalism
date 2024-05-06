@@ -1,14 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 500" width="1500" height="500">
-    
-    <line class="xaxis" x1="60" y1="420" x2="1040" y2="420" stroke="#000000" stroke-width="4"/>
-    <line class="yaxis" x1="60" y1="420" x2="60" y2="60" stroke="#000000" stroke-width="4"/>
 
     {% for district in districts %}
         <rect class="{{district}}" x="{{70+loop.index0*30}}" y="{{420 - avg_Score[district]*3.6}}" width="25" height="{{avg_Score[district]*3.6}}" fill="#ececec"/>
     {% endfor %} 
+
+    {% for district in districts %}
+        <text class="xaxislabel" x="{{82.5+loop.index0*30}}" y="440" font-size="14" text-anchor="middle">{{district}}</text>
+    {% endfor %}
     
     {% for i in range(11) %}
-        <text class="yaxislabel" x="35" y="{{425 - 36*i}}" font-size="12" text>{{i*10}}</text>
-    {% endfor %}    
+        <text class="yaxislabel" x="55" y="{{425 - 36*i}}" font-size="12" text-anchor="end">{{i*10}}</text>
+    {% endfor %}
+
+    <text class="title" x="535" y="40" text-anchor="middle">Overall Average Test Score per District in {{year}}</text>
+    <text class="title" x="535" y="55" text-anchor="middle">With Percentage of Economically Disadvantaged Students per District</text>
+
+    <line class="xaxis" x1="60" y1="420" x2="1040" y2="420" stroke="#000000" stroke-width="4"/>
+    <line class="yaxis" x1="60" y1="420" x2="60" y2="60" stroke="#000000" stroke-width="4"/>
+
 
 </svg>
