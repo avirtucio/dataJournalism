@@ -10,7 +10,7 @@
             <a class="nav-link active" aria-current="page" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/macro">Economic Situations of NYC</a>
+            <a class="nav-link" href="/citywidescores">Economic Situations of NYC</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -18,7 +18,7 @@
             </a>
             <ul class="dropdown-menu">
               {% for district in districts %}
-              <li><a class="dropdown-item" href="/micro/{{district}}">{{district}}</a></li>
+              <li><a class="dropdown-item" href="/districtscores/{{district}}">{{district}}</a></li>
               {% endfor %}
             </ul>
           </li>

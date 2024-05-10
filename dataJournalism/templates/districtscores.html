@@ -8,11 +8,10 @@
 
     <body>
         {% include 'navbar.html' %}
-
         {% include 'district_scores.svg' %}
-
+        {% include 'nycschooldistricts.svg' %}
         <div>
-            <form action="/micro/{{district}}" method="GET">
+            <form action="/districtscores/{{district}}" method="GET">
               <label for="score">Choose a score:</label><br>
               <select name="score" id="score_select">
                 {% for score in range(1,5) %}
@@ -24,5 +23,10 @@
           </div>
 
           {% include 'footer.html' %}
+
+          <script>
+            dist = document.getElementById("district"+{{district}})
+            dist.style.fill = "hsl(0, 0%, 30%)"
+          </script>
     </body>
 </html>

@@ -40,7 +40,7 @@ def about():
 
     return render_template('about.html', data=data, years=years, districts=districts)
 
-@app.route('/macro')
+@app.route('/citywidescores')
 def macro():
     f = open("dataJournalism/data/math_scores.json")
     data = json.load(f)
@@ -78,18 +78,21 @@ def macro():
         avg_Score[district] = int(avg)
 
     bar_Colors = []
-    for percent in range(100,42,-7):
+    for percent in range(90,6,-12):
         bar_Colors.append("hsl(0,100%,"+str(percent)+"%)")
-    #range is 30% to 100%
-    
+    #range from 30%-100%
+    #0;90 1;80 2;70 3;60 4;50 5;40 6;30
+    #0;brightest                   6;darkest
+
     data_Points_to_Colors = {}
     for district in percent_Disadv:
-        data_Points_to_Colors[district] = bar_Colors[math.ceil(percent_Disadv[district]/10) - 3]
-    #0;30 1;40 2;50 3;60 4;70 5;80 6;90 7;100
+        #print(district, percent_Disadv[district], math.floor(percent_Disadv[district]/10) - 3)
+        data_Points_to_Colors[district] = bar_Colors[math.floor(percent_Disadv[district]/10) - 3]
+    #30-39%;0 40-49%;1 50-59%;2 60-69%;3 70-79%;4 80-89%;5 90-99%;6
 
-    return render_template('macro.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv, avg_Score=avg_Score, bar_Colors=bar_Colors, data_Points_to_Colors=data_Points_to_Colors, year=year)
+    return render_template('citywidescores.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv, avg_Score=avg_Score, bar_Colors=bar_Colors, data_Points_to_Colors=data_Points_to_Colors, year=year)
 
-@app.route('/micro/<district>')
+@app.route('/districtscores/<district>')
 def micro(district):
     f = open("dataJournalism/data/math_scores.json")
     data = json.load(f)
@@ -118,7 +121,8 @@ def micro(district):
 
     print(district_Scores)
     print(district_Scores["Not Econ Disadv"][years[numYears-2]])
+
     
-    return render_template('micro.html', data=data, years=years, districts=districts, district=str(district), district_Scores=district_Scores, numYears=numYears, score=score)
+    return render_template('districtscores.html', data=data, years=years, districts=districts, district=str(district), district_Scores=district_Scores, numYears=numYears, score=score)
 
 app.run(debug=True)
