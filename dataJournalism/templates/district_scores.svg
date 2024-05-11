@@ -15,7 +15,9 @@
     {% for n in range(11) %}
         <text class="yaxislabel" x="55" y="{{420-(n*35.5)+2.5}}" font-size="12" text-anchor="end">{{n*10}}</text>
     {% endfor %}
-    <text class="title" x="270" y="50" text-anchor="middle">Percent of test-takers in District {{district}} that scored a {{score}}</text>
+    <text class="xaxis" x="270" y="460" font-size="15" text-anchor="middle">Year</text>
+
+    <text class="title" x="270" y="45" font-size="22" text-anchor="middle">Percent of test-takers in District {{district}} that scored a {{score}}</text>
 
     <line class="xaxis" x1="60" y1="420" x2="480" y2="420" stroke="#000000" stroke-width="4"/>
     <line class="yaxis" x1="60" y1="420" x2="60" y2="60" stroke="#000000" stroke-width="4"/>

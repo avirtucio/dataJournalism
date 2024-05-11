@@ -76,7 +76,31 @@ def macro():
         total4 = (data[district]["Not Econ Disadv"][year]["Pct4"])*notDisadvTesters + (data[district]["Econ Disadv"][year]["Pct4"])*disadvTesters
         avg = (total1 + total2*2 + total3*3 + total4*4)/(totalTests*4)
         avg_Score[district] = int(avg)
-
+    
+    lowestScore=100
+    highestScore=0
+    highestScoreDistrict = "0"
+    lowestScoreDistrict = "0"
+    for district in avg_Score:
+        if avg_Score[district] > highestScore:
+            highestScore = avg_Score[district]
+            highestScoreDistrict = district
+        if avg_Score[district] < lowestScore:
+            lowestScore = avg_Score[district]
+            lowestScoreDistrict = district
+    
+    lowestEconDisadvPop=100
+    highestEconDisadvPop=0
+    lowestEconDisadvPopDistrict="0"
+    highestEconDisadvPopDistrict="0"
+    for district in percent_Disadv:
+        if percent_Disadv[district] > highestEconDisadvPop:
+            highestEconDisadvPop = percent_Disadv[district]
+            highestEconDisadvPopDistrict = district
+        if percent_Disadv[district] < lowestEconDisadvPop:
+            lowestEconDisadvPop = percent_Disadv[district]
+            lowestEconDisadvPopDistrict = district
+            
     bar_Colors = []
     for percent in range(90,6,-12):
         bar_Colors.append("hsl(0,100%,"+str(percent)+"%)")
@@ -86,11 +110,13 @@ def macro():
 
     data_Points_to_Colors = {}
     for district in percent_Disadv:
-        #print(district, percent_Disadv[district], math.floor(percent_Disadv[district]/10) - 3)
         data_Points_to_Colors[district] = bar_Colors[math.floor(percent_Disadv[district]/10) - 3]
     #30-39%;0 40-49%;1 50-59%;2 60-69%;3 70-79%;4 80-89%;5 90-99%;6
 
-    return render_template('citywidescores.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv, avg_Score=avg_Score, bar_Colors=bar_Colors, data_Points_to_Colors=data_Points_to_Colors, year=year)
+    return render_template('citywidescores.html', data=data, years=years, districts=districts, percent_Disadv=percent_Disadv, avg_Score=avg_Score, bar_Colors=bar_Colors, data_Points_to_Colors=data_Points_to_Colors, year=year,
+                           lowestScore=(lowestScore/100)*4, highestScore=(highestScore/100)*4, lowestScoreDistrict=lowestScoreDistrict, highestScoreDistrict=highestScoreDistrict,
+                           lowestEconDisadvPop=lowestEconDisadvPop, highestEconDisadvPop=highestEconDisadvPop, lowestEconDisadvPopDistrict=lowestEconDisadvPopDistrict,
+                           highestEconDisadvPopDistrict=highestEconDisadvPopDistrict)
 
 @app.route('/districtscores/<district>')
 def micro(district):
@@ -119,10 +145,7 @@ def micro(district):
     for year in data[district]["Not Econ Disadv"]:
         district_Scores["Not Econ Disadv"][year] = data[district]["Not Econ Disadv"][year]["Pct"+score]
 
-    print(district_Scores)
-    print(district_Scores["Not Econ Disadv"][years[numYears-2]])
-
-    
-    return render_template('districtscores.html', data=data, years=years, districts=districts, district=str(district), district_Scores=district_Scores, numYears=numYears, score=score)
+    return render_template('districtscores.html', data=data, years=years, districts=districts, district=str(district), 
+                           district_Scores=district_Scores, numYears=numYears, score=score)
 
 app.run(debug=True)

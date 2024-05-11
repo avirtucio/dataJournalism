@@ -10,9 +10,8 @@
       {% include 'navbar.html' %}
 
       {% include 'citywide_scores.svg' %}
-      {% include 'nycschooldistricts.svg' %}
 
-      <div>
+        <div>
           <form action="/citywidescores" method="GET">
             <label for="year">Choose a year:</label><br>
             <select name="year" id="year_select">
@@ -22,6 +21,19 @@
             </select>
             <input type="submit" value="Submit">
           <form>
+        </div>
+
+        <div>
+          <text>District {{lowestScoreDistrict}} had the lowest average score of {{lowestScore}}</text><br>
+          <text>District {{highestScoreDistrict}} had the highest average score of {{highestScore}}</text><br>
+          <text>District {{highestEconDisadvPopDistrict}} had the highest percentage of economically disadvantaged students at {{highestEconDisadvPop}}%</text><br>
+          <text>District {{lowestEconDisadvPopDistrict}} had the lowest percentage of economically disadvantaged students at {{lowestEconDisadvPop}}%</text><br>
+        </div>
+        <div>
+          <text>Takeaways:</text><br>
+          <text>Districts with more economically disadvantaged students average lower scores than districts with less economically disadvantaged students</text><br>
+          <text>The districts with the most economically disadvtanged students are the ones in the Bronx and Upper Manhattan</text><br>
+          <text>While overall test scores have increased a bit and economically disadvantaged populations have decreased a bit since 2013, the same districts have always had more economically disadvantaged students than the others, and the same districts have always scored less than the others</text>
         </div>
 
         {% include 'footer.html' %}
