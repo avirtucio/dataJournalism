@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" style="display: block; margin: auto">
 
     {% for district in districts %}
         <rect class="{{district}}" x="{{70+loop.index0*30}}" y="{{420 - avg_Score[district]*3.6}}" width="25" height="{{avg_Score[district]*3.6}}" fill="#ececec"/>

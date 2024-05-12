@@ -4,14 +4,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Data Journalism</title> <!--add more info-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
       {% include 'navbar.html' %}
 
       {% include 'citywide_scores.svg' %}
-
-        <div>
+      
+        <div id="yearform">
           <form action="/citywidescores" method="GET">
             <label for="year">Choose a year:</label><br>
             <select name="year" id="year_select">
@@ -22,18 +23,31 @@
             <input type="submit" value="Submit">
           <form>
         </div>
+      
 
-        <div>
-          <text>District {{lowestScoreDistrict}} had the lowest average score of {{lowestScore}}</text><br>
-          <text>District {{highestScoreDistrict}} had the highest average score of {{highestScore}}</text><br>
-          <text>District {{highestEconDisadvPopDistrict}} had the highest percentage of economically disadvantaged students at {{highestEconDisadvPop}}%</text><br>
-          <text>District {{lowestEconDisadvPopDistrict}} had the lowest percentage of economically disadvantaged students at {{lowestEconDisadvPop}}%</text><br>
+        <div id="data">
+          <text><b>Some Key Datapoints:</b></text><br>
+          <ul>
+            <li>District {{lowestScoreDistrict}} had the lowest average score of {{lowestScore}}</li>
+            <li>District {{highestScoreDistrict}} had the highest average score of {{highestScore}}</li>
+            <li>District {{highestEconDisadvPopDistrict}} had the highest percentage of economically disadvantaged 
+              students at {{highestEconDisadvPop}}%</li>
+            <li>District {{lowestEconDisadvPopDistrict}} had the lowest percentage of economically disadvantaged 
+              students at {{lowestEconDisadvPop}}%</li>
+          </ul>
         </div>
-        <div>
-          <text>Takeaways:</text><br>
-          <text>Districts with more economically disadvantaged students average lower scores than districts with less economically disadvantaged students</text><br>
-          <text>The districts with the most economically disadvtanged students are the ones in the Bronx and Upper Manhattan</text><br>
-          <text>While overall test scores have increased a bit and economically disadvantaged populations have decreased a bit since 2013, the same districts have always had more economically disadvantaged students than the others, and the same districts have always scored less than the others</text>
+
+        <div id="takeaways">
+          <text><b>Some Takeaways:</b></text><br>
+          <ul>
+            <li>Districts with more economically disadvantaged students average lower scores than districts with less 
+              economically disadvantaged students</li>
+            <li>The districts with the most economically disadvtanged students are the ones in the Bronx and Upper 
+              Manhattan</li>
+            <li>While overall test scores have increased a bit and economically disadvantaged populations have decreased
+                a bit since 2013, the same districts have always had more economically disadvantaged students than the 
+                others, and the same districts have always scored less than the others</li>
+          </ul>
         </div>
 
         {% include 'footer.html' %}
@@ -49,6 +63,10 @@
             district[0].style.fill = data_Points_to_ColorsJS[districtsJS[i]];
           }
 
+          document.getElementById("yearform").style.marginLeft = "75px";
+          document.getElementById("data").style.marginLeft = "25px";
+          document.getElementById("takeaways").style.marginLeft = "25px";
+          document.getElementById("takeaways").style.marginRight = "125px";
         </script>
     </body>
 

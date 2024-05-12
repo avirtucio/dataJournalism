@@ -8,9 +8,11 @@
 
     <body>
         {% include 'navbar.html' %}
-        {% include 'district_scores.svg' %}
-        {% include 'nycschooldistricts.svg' %}
-        <div>
+        <div id="svgs" style="display: block; margin: 0px 145px">
+          {% include 'district_scores.svg' %}
+          {% include 'nycschooldistricts.svg' %}
+      
+          <div>
             <form action="/districtscores/{{district}}" method="GET">
               <label for="score">Choose a score:</label><br>
               <select name="score" id="score_select">
@@ -21,12 +23,40 @@
               <input type="submit" value="Submit">
             <form>
           </div>
+        </div>
+
+        <div id="data" style="margin-left: 25px; margin-right: 145px">
+          <text><b>Some Key Datapoints</b></text>
+          <ul>
+            <li>In 2023, {{district_Scores["Econ Disadv"]["2023"]}}% of economically disadvantaged students in district 
+              {{district}} scored a {{score}}
+            </li>
+            <li>In 2023, {{district_Scores["Not Econ Disadv"]["2023"]}}% of non economically disadvantaged students in
+              district {{district}} scored a {{score}}</li>
+            <li>On average, a higher percentage of {{higherCategory}} students in district {{district}} score {{score}}s</li>
+          </ul>
+        </div>
+
+        <div id="takeaways" style="margin-left: 25px; margin-right: 145px"> 
+          <text><b>General Takeaways</b></text>
+          <p>Something to note is the fact that in virtually every district, a higher percentage of economically 
+            disadvantaged students score 1s and 2s than those who aren't economically disadvantaged; a higher percentage of
+            the not economically disadvantaged population score 3s and 4s than the economically disadvantaged population
+          </p>
+          <p>Something else that's interesting however is the fact that in certain districts, economically disadvantaged
+            and not disadvantaged students will still perform similarly. For example, even though a higher percentage of 
+            non economically disadvantaged students score a 3 or 4, it's not a much higher percentage than that of the 
+            economically disadvantaged students who scored a 3 or 4. So both student populations can perform just as poorly
+            on the test. This tends to happen in districts with a high economically disadvantaged student population (>90%),
+            suggesting that the entire community is underserved in general.
+          </p>
+        </div>
 
           {% include 'footer.html' %}
 
-          <script>
-            dist = document.getElementById("district"+{{district}})
-            dist.style.fill = "hsl(0, 0%, 30%)"
-          </script>
+        <script>
+          dist = document.getElementById("district"+{{district}})
+          dist.style.fill = "hsl(0, 0%, 30%)"
+        </script>
     </body>
 </html>

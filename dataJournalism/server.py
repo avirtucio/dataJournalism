@@ -145,7 +145,27 @@ def micro(district):
     for year in data[district]["Not Econ Disadv"]:
         district_Scores["Not Econ Disadv"][year] = data[district]["Not Econ Disadv"][year]["Pct"+score]
 
+    sumPercDisadv=0
+    amntPercDisadv=0
+    for year in district_Scores["Econ Disadv"]:
+        sumPercDisadv+=district_Scores["Econ Disadv"][year]
+        amntPercDisadv+=1
+    avgPercDisadv=sumPercDisadv/amntPercDisadv
+
+    sumPercNotDisadv=0
+    amntPercNotDisadv=0
+    for year in district_Scores["Not Econ Disadv"]:
+        sumPercNotDisadv+=district_Scores["Not Econ Disadv"][year]
+        amntPercNotDisadv+=1
+    avgPercNotDisadv=sumPercNotDisadv/amntPercNotDisadv
+
+    if avgPercDisadv > avgPercNotDisadv:
+        higherCategory = "economically disadvantaged"
+    else:
+        higherCategory= "non economically disadvantaged"
+
+
     return render_template('districtscores.html', data=data, years=years, districts=districts, district=str(district), 
-                           district_Scores=district_Scores, numYears=numYears, score=score)
+                           district_Scores=district_Scores, numYears=numYears, score=score, higherCategory=higherCategory)
 
 app.run(debug=True)
